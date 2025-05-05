@@ -17,7 +17,7 @@ You are querying a relational database with the following schema:
 {db_schema}
 
 ## Your Task
-Based on the above information, write a single valid SQL query that correctly answers the user's question.
+Based on the above information, write a single valid SQLite query that correctly answers the user's question.
 
 - Do not include explanations or comments.
 - Only output the SQL query, starting with SELECT.
@@ -35,7 +35,7 @@ Respond with only the SQL query.
                 "content": prompt
             }
         ],
-        temperature=0.3,
+        temperature=0.1,
     )
 
     return response.choices[0].message.content

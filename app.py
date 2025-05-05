@@ -40,9 +40,9 @@ footer {display: none !important}
     color: #666;
     font-size: 24px;
 }
-.output-image {
-    width: 100% !important;
-    max-width: 100% !important;
+.response {
+    font-size: 24px !important;
+    font-family: Arial, sans-serif !important;
 }
 """
 
@@ -54,13 +54,13 @@ def clear_prompt():
 
 with gr.Blocks(theme=gr.themes.Soft(), css=css) as demo:
     gr.HTML('<div class="title">CS/DS552 GenAI Final Project - MultiAgent NL2SQL</div>')
-    gr.HTML('<div style="text-align: center; margin-bottom: 2em; color: #666; font-size: 24px;">Jingni & Vishal</div>')
+    gr.HTML('<div style="text-align: center; margin-bottom: 2em; color: #666; font-size: 24px;">Group 6: Jingni & Badrivishal</div>')
 
     with gr.Column():
         prompt = gr.Textbox(
             label="Query",
-            placeholder="Describe the question ...",
-            lines=1
+            placeholder="Describe your question ...",
+            elem_classes=["response"]
         )
         with gr.Row():
             generate_btn = gr.Button(
@@ -72,9 +72,8 @@ with gr.Blocks(theme=gr.themes.Soft(), css=css) as demo:
                 elem_classes=["submit-btn"]
             )
     with gr.Row():
-        response = gr.HTML(
-            '<div class="response" style="margin-top: 10px; font-size: 14px; color: #666;"></div>',
-            elem_id="response")
+        response = gr.HTML('<div class="response"></div>',
+                           elem_classes=["response"])
 
     generate_btn.click(
         fn=plan_and_execution,
