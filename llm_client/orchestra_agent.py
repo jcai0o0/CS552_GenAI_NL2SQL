@@ -1,6 +1,6 @@
 from huggingface_hub import InferenceClient
 from llm_client.intent_agent import get_intent_plan
-from llm_client.sql_generator import build_sql_query
+from llm_client.sql_generator import build_sql_query_with_schema, build_sql_query_no_schema
 from llm_client.local_sql_generator import build_sql_query_local
 from retrieval_agent.similarity_search import retrieve_similar_tables
 import json
@@ -31,20 +31,28 @@ def plan_and_execution(client: InferenceClient, nl_query: str):
     intent_plan = get_intent_plan(client=client, nl_query=nl_query, db_schema=retrieved_db[0][0]['metadata'])
     clean_intent_plan = extract_json_from_llm_response(text=intent_plan)
 
-    final_sql_query = build_sql_query(client=client, user_input=nl_query,
-                                      sql_plan=clean_intent_plan,
-                                      db_schema=retrieved_db[0][0]['metadata'])
+    # LLM with no background info
+    llm_no_info_sql_query = build_sql_query_no_schema(client=client, user_input=nl_query,)
+    llm_no_info_sql_query_html = llm_no_info_sql_query.replace('\n', '<br>')
+
+    llm_sql_query = build_sql_query_with_schema(client=client, user_input=nl_query,
+                                                db_schema=retrieved_db[0][0]['metadata'])
+    llm_sql_query_html = llm_sql_query.replace('\n', '<br>')
     
     local_sql_query = build_sql_query_local(client=client, user_input=nl_query,
                                       sql_plan=intent_plan,
                                       db_schema=retrieved_db[0][0]['metadata'])
-    
-    print(f"NL Query: {nl_query}")
-    print(f"local_sql_query: {local_sql_query}")
-    print(f"final_sql_query: {final_sql_query}")
-    
 
-    return final_sql_query, local_sql_query
+    # local_sql_query = 'testing'
+    # TODO: check if displaying in the desired format
+    local_sql_query_html = local_sql_query.replace('\n', '<br>')
+
+    print(f"NL Query: {nl_query}")
+    print(f"Generated SQL Query - Ours: {local_sql_query}")
+    print(f"Generated SQL Query - Llama w/o background info: {llm_no_info_sql_query}")
+    print(f"Generated SQL Query - Llama with db schema: {llm_sql_query}")
+
+    return llm_no_info_sql_query_html, llm_sql_query_html, local_sql_query_html
 
 
 if __name__ == '__main__':
