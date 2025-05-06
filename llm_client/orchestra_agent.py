@@ -42,12 +42,11 @@ def plan_and_execution(client: InferenceClient, nl_query: str):
     llm_sql_query_html = llm_sql_query.replace('\n', '<br>')
     
     local_sql_query = build_sql_query_local(client=client, user_input=nl_query,
-                                      sql_plan=intent_plan,
-                                      db_schema=retrieved_db[0][0]['metadata'])
+                                            sql_plan=intent_plan,
+                                            db_schema=retrieved_db[0][0]['metadata'])
     local_evaluated_sql = evaluate_sql_query(local_sql_query, retrieved_db)
 
     # local_sql_query = 'testing'
-    # TODO: check if displaying in the desired format
     local_sql_query_html = local_sql_query.replace('\n', '<br>')
 
     # print(f"NL Query: {nl_query}")
@@ -56,7 +55,7 @@ def plan_and_execution(client: InferenceClient, nl_query: str):
     # print(f"Generated SQL Query - Llama with db schema: {llm_sql_query}")
     # print(f"Execution Result: {local_evaluated_sql}")
 
-    return llm_no_info_sql_query_html, llm_sql_query_html, local_sql_query_html
+    return llm_no_info_sql_query_html, llm_sql_query_html, local_sql_query_html, llm_no_info_evaluated_sql, llm_evaluated_sql, local_evaluated_sql
 
 
 if __name__ == '__main__':
