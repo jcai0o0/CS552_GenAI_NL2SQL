@@ -21,30 +21,16 @@ tokenizer.pad_token = tokenizer.eos_token
 def build_sql_query_local(client, user_input: str, sql_plan: str, db_schema: str) -> str:
     # === Construct prompt (same logic as InferenceClient)
     prompt = f"""
-You are a helpful and accurate SQL query generator.
+User Query: {user_input}
 
-## User Input
-The user asked: "{user_input}"
-
-## SQL Plan
-Here is the extracted plan that outlines the user's intent:
+SQL Plan: Here is the extracted plan that outlines the user's intent:
 {sql_plan}
 
-## Database Schema
-You are querying a relational database with the following schema:
+Schema:
 {db_schema}
 
-## Your Task
-Based on the above information, write a single valid SQL query that correctly answers the user's question.
 
-- Do not include explanations or comments.
-- Only output the SQL query, starting with SELECT.
-- Ensure all referenced tables and columns exist in the schema.
-- If JOINs are necessary, use appropriate keys based on foreign key relationships.
-- If aggregations or filters are needed, apply them according to the plan.
-- The SQL query should be syntactically correct, with proper indentation and formatting where appropriate.
-- Do not use any code block formatting (no triple backticks or SQL syntax highlighting).
-
+Generate the SQLite query based on the above information. Ensure that the query is valid and follows the SQLite syntax.
 Respond with only the SQL query.
 SQL:
 """.strip()
