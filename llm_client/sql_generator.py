@@ -20,11 +20,14 @@ Based on the above information, write a single valid SQLite query that correctly
 - Ensure all referenced tables and columns exist in the schema.
 - If JOINs are necessary, use appropriate keys based on foreign key relationships.
 - If aggregations or filters are needed, apply them according to the plan.
+- The SQL query should be syntactically correct, with proper indentation and formatting where appropriate.
+- Do not use any code block formatting (no triple backticks or SQL syntax highlighting).
 
 Respond with only the SQL query.
 """
     response = client.chat.completions.create(
-        model="meta-llama/Llama-3.3-70B-Instruct",
+        # model="meta-llama/Llama-3.3-70B-Instruct",
+        model="meta-llama/Meta-Llama-3.1-8B-Instruct",
         messages=[
             {
                 "role": "user",
@@ -50,13 +53,15 @@ Based on the above information, write a single valid SQLite query that correctly
 - Do not include explanations or comments.
 - Only output the SQL query, starting with SELECT.
 - Ensure all referenced tables and columns exist in the schema.
-- If JOINs are necessary, use appropriate keys based on foreign key relationships.
 - If aggregations or filters are needed, apply them according to the plan.
+- The SQL query should be syntactically correct, with proper indentation and formatting where appropriate.
+- Do not use any code block formatting (no triple backticks or SQL syntax highlighting).
 
 Respond with only the SQL query.
 """
     response = client.chat.completions.create(
-        model="meta-llama/Llama-3.3-70B-Instruct",
+        # model="meta-llama/Llama-3.3-70B-Instruct",
+        model="meta-llama/Meta-Llama-3.1-8B-Instruct",
         messages=[
             {
                 "role": "user",

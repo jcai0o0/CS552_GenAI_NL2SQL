@@ -42,6 +42,8 @@ Based on the above information, write a single valid SQL query that correctly an
 - Ensure all referenced tables and columns exist in the schema.
 - If JOINs are necessary, use appropriate keys based on foreign key relationships.
 - If aggregations or filters are needed, apply them according to the plan.
+- The SQL query should be syntactically correct, with proper indentation and formatting where appropriate.
+- Do not use any code block formatting (no triple backticks or SQL syntax highlighting).
 
 Respond with only the SQL query.
 SQL:
